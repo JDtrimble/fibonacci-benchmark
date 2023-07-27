@@ -41,10 +41,15 @@ def benchmark_cpp():
     return output.strip(), time_of_execution
 
 def benchmark_rust():
+    # This is deprecated, I made an experemental version which supports big integers
+    # if sys.platform.startswith("linux"):
+    #     cmd = ['./build/rust(linux)']
+    # elif sys.platform.startswith("win"):
+    #     cmd = ['.\\build\\rust(win)']
+    # else:
+    #     raise UnknownPlatformError
     if sys.platform.startswith("linux"):
-        cmd = ['./build/rust(linux)']
-    elif sys.platform.startswith("win"):
-        cmd = ['.\\build\\rust(win)']
+        cmd = ['./src/fibonacci-rust-bigint/target/release/fibonacci-rust-bigint']
     else:
         raise UnknownPlatformError
     start = time.time()
@@ -55,6 +60,14 @@ def benchmark_rust():
     return output.strip(), time_of_execution
 
 def benchmark_c():
+    """This function tests algorithm, that has O(n) coplexity
+
+    Raises:
+        UnknownPlatformError: If you use FreeBSD, you're 💀
+
+    Returns:
+        (str, float): program's output to input; time it took for the program to get used to input
+    """
     if sys.platform.startswith("linux"):
         cmd = ['./build/c(linux)']
     elif sys.platform.startswith("win"):
@@ -67,6 +80,29 @@ def benchmark_c():
     end = time.time()
     time_of_execution = end - start
     return output.strip(), time_of_execution
+
+def benchmark_c():
+    """This function tests algorithm, that has O(log n) coplexity
+
+    Raises:
+        UnknownPlatformError: If you use FreeBSD, you're 💀
+
+    Returns:
+        (str, float): program's output to input; time it took for the program to get used to input
+    """
+    if sys.platform.startswith("linux"):
+        cmd = ['./build/c_matrix(linux)']
+    elif sys.platform.startswith("win"):
+        cmd = ['.\\build\\c_matrix(win)']
+    else:
+        raise UnknownPlatformError
+    start = time.time()
+    process = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
+    output, _ = process.communicate(input=input_str)
+    end = time.time()
+    time_of_execution = end - start
+    return output.strip(), time_of_execution
+
 
 def benchmark_pascal():
     if sys.platform.startswith("linux"):

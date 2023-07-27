@@ -1,28 +1,28 @@
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class fib {
     // Function to calculate nth Fibonacci number using memoization
-    public static long fibonacci(int n, long[] memo) {
+    public static BigInteger fibonacci(int n, BigInteger[] memo) {
         if (n <= 1) {
-            return n;
+            return BigInteger.valueOf(n);
         }
 
-        if (memo[n] != -1) {
+        if (memo[n] != null) {
             return memo[n];
         }
 
-        memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);
+        memo[n] = fibonacci(n - 1, memo).add(fibonacci(n - 2, memo));
         return memo[n];
     }
 
     // Function to initialize the memoization array and call the fibonacci function
-    public static long nthFibonacci(int n) {
-        long[] memo = new long[n + 1];
-        Arrays.fill(memo, -1);
+    public static BigInteger nthFibonacci(int n) {
+        BigInteger[] memo = new BigInteger[n + 1];
+        Arrays.fill(memo, null);
 
-        long result = fibonacci(n, memo);
-        return result;
+        return fibonacci(n, memo);
     }
 
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class fib {
 
         int n = scanner.nextInt();
 
-        long result = nthFibonacci(n);
+        BigInteger result = nthFibonacci(n);
         System.out.println(result);
 
         scanner.close();
