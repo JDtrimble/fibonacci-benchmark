@@ -27,10 +27,12 @@ long long nthFibonacci(int n) {
     free(memo);
     return result;
 }
-
 int main() {
     int n;
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1) {
+        printf("Error reading input.\n");
+        return 1;
+    }
 
     long long result = nthFibonacci(n);
     printf("%lld\n", result);

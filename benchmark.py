@@ -111,7 +111,7 @@ if __name__ == "__main__":
     with open('task.txt', 'r') as task_file:
         line = task_file.readline().strip()
         print(line)
-    print(f"Input:\t{input_str}")
+    input_str = input(f"Input:\t").strip()
 
     lang = {}
     lang['python'] = benchmark_python()
